@@ -13,9 +13,10 @@ public class App
     {
         ApplicationContext context = new ClassPathXmlApplicationContext ("Spring.xml");
         Dev obj = (Dev) context.getBean("dev");
-        //obj.build ();
-        System.out.println (obj.getAge ());
-        //setter injection .
+        obj.build ();
+        // obj.age = 19;
+        //System.out.println (obj.age);
+
 
     }
 }
