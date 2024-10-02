@@ -12,4 +12,13 @@ public class Product{
     private String ProdName;
     private int price ;
     // when we use private we need getter and setter ... so we use lombok to do that for us.
+
+    @Override
+    public String toString () {
+        return "Product{" +
+                "ProdId=" + ProdId +
+                ", ProdName='" + ProdName + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
