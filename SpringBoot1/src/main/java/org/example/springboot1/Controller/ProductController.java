@@ -33,6 +33,5 @@ public class ProductController{
     @DeleteMapping("/products/{prodId}")
     public void deleteProduct ( @PathVariable int prodId ) {
         service.deleteProduct (prodId);
-
     }
 }
