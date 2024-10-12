@@ -42,5 +42,5 @@ public class ProductService{
                products.remove ( index );
            }
        }
-   }
+    }
 }
