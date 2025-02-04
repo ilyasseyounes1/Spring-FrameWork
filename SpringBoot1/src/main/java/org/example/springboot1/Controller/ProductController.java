@@ -20,10 +20,14 @@ public class ProductController{
         return service.getProductById ( prodId );
     }
 
+
     // all @RequestMapping methode are by default, it s GET
     @PostMapping("/products") // @RequestBody : when u send a body from client to server : we us it to match data .
     public void addProduct (@RequestBody Product prod ) {
         System.out.println (prod);
+
+ 
+
         service.addProduct ( prod );
     }
     @PutMapping("/products")
@@ -31,7 +35,7 @@ public class ProductController{
        service.updateProduct ( prod );
     }
     @DeleteMapping("/products/{prodId}")
-    public void deleteProduct (@PathVariable int prodId ) {
+    public void deleteProduct ( @PathVariable int prodId ) {
         service.deleteProduct (prodId);
     }
 
