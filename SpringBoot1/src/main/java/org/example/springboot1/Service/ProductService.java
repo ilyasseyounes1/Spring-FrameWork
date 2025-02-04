@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
-// for business  logic
+// for business logic
 @Service
-public class ProductService{
+public class ProductService{        //Arrays.asList (....): to
    List <Product> products =new ArrayList<> (Arrays.asList(
            new Product(101,"Iphone",50000),
            new Product ( 102,"Huawei",80000 ),
@@ -42,5 +42,8 @@ public class ProductService{
                products.remove ( index );
            }
        }
+    }
+    public void deletbyname (String name){
+       products.remove ( name  );
     }
 }

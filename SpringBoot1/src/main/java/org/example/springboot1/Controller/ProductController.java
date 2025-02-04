@@ -15,13 +15,13 @@ public class ProductController{
         return service.getProducts ().toString ();
     }
 
-    @GetMapping("/products/{prodId}")
+    @GetMapping("/products/{prodId}") // @pathvar to match {prodId} with int pordId.
     public Product getProductById ( @PathVariable int prodId ) {
         return service.getProductById ( prodId );
     }
 
-    // all methode are  by default, it s GET
-    @PostMapping("/products")
+    // all @RequestMapping methode are by default, it s GET
+    @PostMapping("/products") // @RequestBody : when u send a body from client to server : we us it to match data .
     public void addProduct (@RequestBody Product prod ) {
         System.out.println (prod);
         service.addProduct ( prod );
