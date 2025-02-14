@@ -35,28 +35,31 @@ public class GreetinsController{
         return "spring security admin";
 }
 
-        @PostMapping("/signin")
-        public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest  LoginRequest) {
-            try {
-                // Authenticate the user
-                Authentication authentication = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                LoginRequest.getUsername(),
-                                 LoginRequest.getPassword()
-                        )
-                );
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
 
-                // Set the authentication object in the SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateTokenFromUsername(authentication.getName());
 
-                // Generate a JWT token
-                String jwt = jwtUtils.generateTokenFromUsername(authentication);
-
-                // Return the JWT token in the response
-                return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-            } catch (AuthenticationException e) {
-                // Handle authentication failure
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-            }
+            return ResponseEntity.ok(new LoginResponse(jwt, authentication.getName(), getRoles(authentication)));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
+    }
+
+    private List<String> getRoles(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+    }
+}
+
+
     }
